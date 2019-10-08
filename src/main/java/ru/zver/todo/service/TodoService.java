@@ -18,8 +18,7 @@ public class TodoService {
     }
 
     public Todo create(Todo todo) {
-        Todo todoUpdated = todoRepo.save(todo);
-        return todoUpdated;
+        return todoRepo.save(todo);
     }
 
     public Todo update(Todo oldTodo, Todo newTodo) {

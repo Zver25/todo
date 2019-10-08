@@ -1,9 +1,11 @@
 .DS_Store
 HELP.md
+node_modules/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+src/main/resources/static/app.js
 
 ### STS ###
 .apt_generated

@@ -12,6 +12,7 @@ public class Todo {
     @Id
     @GeneratedValue()
     private Long id;
+    private Boolean completed;
     private String title;
     private String description;
 
@@ -49,5 +50,13 @@ public class Todo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 }

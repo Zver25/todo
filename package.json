@@ -1,0 +1,27 @@
+{
+  "name": "spring-and-reactjs-todo",
+  "version": "0.1.0",
+  "description": "My first Spring REST + ReactJS application",
+  "author": "Zver",
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "rest": "^1.3.1",
+    "antd": "^3.20.5",
+    "moment": "^2.24.0",
+    "prop-types": "latest"
+  },
+  "scripts": {
+    "watch": "webpack --watch -d"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0"
+  }
+}
