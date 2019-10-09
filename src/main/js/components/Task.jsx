@@ -31,7 +31,7 @@ const Task = ({ id, completed, title, description, removeTask, completeTask, ope
 };
 
 Task.propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.number,
     completed: PropTypes.bool,
     title: PropTypes.string,
     description: PropTypes.string,
@@ -41,7 +41,7 @@ Task.propTypes = {
 };
 
 Task.defaultProps = {
-    id: '',
+    id: 0,
     completed: false,
     title: '',
     description: '',

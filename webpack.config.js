@@ -1,4 +1,7 @@
-var path = require('path');
+let path = require('path');
+let webpack = require('webpack');
+
+const devFlagPlugin = new webpack.DefinePlugin({ __DEV__: true });
 
 module.exports = {
     entry: './src/main/js/index.jsx',
@@ -18,10 +21,13 @@ module.exports = {
                 use: [{
                     loader: 'babel-loader',
                     options: {
-                        presets: ["@babel/preset-env", "@babel/preset-react"]
+                        presets: ['env', 'stage-0', 'react']
                     }
                 }]
             }
         ]
-    }
+    },
+    plugins: [
+        devFlagPlugin
+    ]
 };

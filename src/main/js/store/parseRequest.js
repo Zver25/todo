@@ -1,7 +1,6 @@
-export default ({ response }) => {
-    console.log(response);
-    if (response && response.err === 0 && typeof response.data !== 'undefined') {
-        return response.data;
+export default ({ status, response }) => {
+    if (status >= 200 && status <= 210) {
+        return response;
     }
-    throw response.msg;
+    throw response;
 };

@@ -6,7 +6,7 @@ import App from './components/App';
 import store from './store';
 import { fetchTasks } from "./store/Tasks";
 
-store.dispatch(fetchTasks);
+store.dispatch(fetchTasks());
 
 ReactDOM.render(
     <Provider store={ store }>

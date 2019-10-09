@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Row, Col, Button, Icon } from 'antd';
 
 import Tasks from '../components/Tasks';
-import { removeTask, completeTask, removeCompletedTasks } from '../store/Tasks';
+import { removeTask, removeCompletedTasks } from '../store/Tasks';
+import { openTaskEditModal } from "../store/TaskEditModal";
 
 class TodoList extends Component {
 
@@ -20,7 +21,7 @@ class TodoList extends Component {
             <Fragment>
                 <Row type='flex' justify='center'>
                     <Col span={ 8 }>
-                        <Button block onClick={ () => openTaskEditModal('', '', '') }><Icon type="plus" />Добавить задачу</Button>
+                        <Button block onClick={ () => openTaskEditModal(0, '', '') }><Icon type="plus" />Добавить задачу</Button>
                     </Col>
                 </Row>
                 <Row type='flex' justify='center'>

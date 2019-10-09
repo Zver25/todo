@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.zver</groupId>
-    <artifactId>todo</artifactId>
+    <artifactId>task</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>todo</name>
+    <name>task</name>
     <description>My first spring-boot application</description>
 
     <properties>

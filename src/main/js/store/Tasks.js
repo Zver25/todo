@@ -43,7 +43,7 @@ const initialState = [
 
 const apiUrl = '/api/tasks';
 
-export const fetchTasksEpics = action$ => action$.pipe(
+export const fetchTasksEpic = action$ => action$.pipe(
     ofType(FETCH_TASKS),
     switchMap(() =>
         ajax.get(apiUrl).pipe(
@@ -57,7 +57,7 @@ export const fetchTasksEpics = action$ => action$.pipe(
 export const addTaskEpic = action$ => action$.pipe(
     ofType(ADD_TASK),
     switchMap(({ title, description }) =>
-        ajax.post(apiUrl, { title, description }).pipe(
+        ajax.post(apiUrl, { title, description }, { 'Content-Type': 'application/json' }).pipe(
             map(parseRequest),
             map(addTaskSuccess),
             catchError(requestFailure)
@@ -79,7 +79,7 @@ export const removeTaskEpic = action$ => action$.pipe(
 export const updateTaskEpic = action$ => action$.pipe(
     ofType(REMOVE_TASK_SUCCESS),
     switchMap(({ id, title, description }) =>
-        ajax.put(apiUrl + '/' + id, { id, title, description }).pipe(
+        ajax.put(apiUrl + '/' + id, { id, title, description }, { 'Content-Type': 'application/json' }).pipe(
             map(parseRequest),
             map(updateTaskSuccess),
             catchError(requestFailure)
@@ -90,9 +90,9 @@ export const updateTaskEpic = action$ => action$.pipe(
 export const tasksReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_TASKS_SUCCESS:
-            return {
+            return [
                 ...action.tasks
-            };
+            ];
         case ADD_TASK_SUCCESS:
             return [
                 ...state,
