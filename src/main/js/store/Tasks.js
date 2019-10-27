@@ -1,5 +1,5 @@
 import { ajax } from 'rxjs/ajax';
-import { switchMap, catchError, map } from "rxjs/operators";
+import { switchMap, catchError, map, tap } from "rxjs/operators";
 import { ofType } from 'redux-observable';
 
 import parseRequest from "./parseRequest";
@@ -13,7 +13,6 @@ const REMOVE_TASK = 'REMOVE_TASK';
 const REMOVE_TASK_SUCCESS = 'REMOVE_TASK_SUCCESS';
 const UPDATE_TASK = 'UPDATE_TASK';
 const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
-const REMOVE_COMPLETED_TASKS = 'REMOVE_COMPLETED_TASKS';
 
 const requestFailure = (error) => ({ type: REQUEST_TASKS_FAILURE, error });
 export const fetchTasks = () => ({ type: FETCH_TASKS });
@@ -24,22 +23,8 @@ export const removeTask = id => ({ type: REMOVE_TASK, id });
 const removeTaskSuccess = id => ({ type: REMOVE_TASK_SUCCESS, id });
 export const updateTask = (id, title, description, completed) => ({ type: UPDATE_TASK, id, title, description, completed });
 const updateTaskSuccess = task => ({ type: UPDATE_TASK_SUCCESS, task });
-export const removeCompletedTasks = () => ({ type: REMOVE_COMPLETED_TASKS });
 
-const initialState = [
-    {
-        id: '1',
-        completed: false,
-        title: 'Firsd task',
-        description: 'Small description',
-    },
-    {
-        id: '2',
-        completed: true,
-        title: 'Second task',
-        description: 'Description for second task',
-    }
-];
+const initialState = [];
 
 const apiUrl = '/api/tasks';
 
@@ -66,7 +51,7 @@ export const addTaskEpic = action$ => action$.pipe(
 );
 
 export const removeTaskEpic = action$ => action$.pipe(
-    ofType(REMOVE_TASK_SUCCESS),
+    ofType(REMOVE_TASK),
     switchMap(({ id }) =>
         ajax.delete(apiUrl + '/' + id).pipe(
             map(parseRequest),
@@ -77,9 +62,10 @@ export const removeTaskEpic = action$ => action$.pipe(
 );
 
 export const updateTaskEpic = action$ => action$.pipe(
-    ofType(REMOVE_TASK_SUCCESS),
-    switchMap(({ id, title, description }) =>
-        ajax.put(apiUrl + '/' + id, { id, title, description }, { 'Content-Type': 'application/json' }).pipe(
+    ofType(UPDATE_TASK),
+    tap(console.log),
+    switchMap(({ id, title, description, completed }) =>
+        ajax.put(`${apiUrl}/${id}`, { id, title, description, completed }, { 'Content-Type': 'application/json' }).pipe(
             map(parseRequest),
             map(updateTaskSuccess),
             catchError(requestFailure)
@@ -107,10 +93,6 @@ export const tasksReducer = (state = initialState, action) => {
                     ...task,
                     ...action.task
                 } : task);
-        case REMOVE_COMPLETED_TASKS:
-            return [
-                ...state.filter(task => !task.completed)
-            ];
         default:
             return state;
     }

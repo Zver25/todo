@@ -6,14 +6,17 @@ import Task from './Task';
 
 const { Text } = Typography;
 
-const Tasks = ({ tasks, removeTask, completeTask, removeCompletedTasks, openTaskEditModal }) => {
+const Tasks = ({ tasks, removeTask, updateTask, openTaskEditModal }) => {
     const taskActions = {
         removeTask,
-        completeTask,
+        updateTask,
         openTaskEditModal
     };
     const activeTasks = tasks.filter(task => !task.completed);
     const completedTasks = tasks.filter(task => task.completed);
+    const removeCompletedTasks = () => {
+        tasks.forEach(task => { if (task.completed) removeTask(task.id) });
+    };
     return (
         <List
             itemLayout='horizontal'
@@ -49,7 +52,7 @@ const Tasks = ({ tasks, removeTask, completeTask, removeCompletedTasks, openTask
 Tasks.propTypes = {
     tasks: PropTypes.array,
     removeTask: PropTypes.func,
-    completeTask: PropTypes.func,
+    updateTask: PropTypes.func,
     removeCompletedTasks: PropTypes.func,
     openTaskEditModal: PropTypes.func
 };
@@ -57,7 +60,7 @@ Tasks.propTypes = {
 Tasks.defaultProps = {
     tasks: [],
     removeTask: () => {},
-    completeTask: () => {},
+    updateTask: () => {},
     removeCompletedTasks: () => {},
     openTaskEditModal: () => {}
 };

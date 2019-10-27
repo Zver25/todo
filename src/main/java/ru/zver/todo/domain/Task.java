@@ -16,9 +16,16 @@ public class Task {
     private String title;
     private String description;
 
-    public Task() {}
+    public Task() {
+        this.id = 0L;
+        this.completed = false;
+        this.title = "";
+        this.description = "";
+    }
 
     public Task(String title, String description) {
+        this.id = 0L;
+        this.completed = false;
         this.title = title;
         this.description = description;
     }
@@ -26,6 +33,7 @@ public class Task {
     public void update(Task task) {
         this.setTitle(task.getTitle());
         this.setDescription(task.getDescription());
+        this.setCompleted(task.getCompleted());
     }
 
     public Long getId() {

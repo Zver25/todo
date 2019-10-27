@@ -3,18 +3,17 @@ import { connect } from 'react-redux';
 import { Row, Col, Button, Icon } from 'antd';
 
 import Tasks from '../components/Tasks';
-import { removeTask, removeCompletedTasks } from '../store/Tasks';
+import { removeTask, updateTask } from '../store/Tasks';
 import { openTaskEditModal } from "../store/TaskEditModal";
 
 class TodoList extends Component {
 
     render() {
-        const { tasks, removeTask, completeTask, removeCompletedTasks, openTaskEditModal } = this.props;
+        const { tasks, removeTask, updateTask, openTaskEditModal } = this.props;
         const tasksProps = {
             tasks,
             removeTask,
-            completeTask,
-            removeCompletedTasks,
+            updateTask,
             openTaskEditModal
         };
         return (
@@ -40,8 +39,7 @@ const mapStateToProps = ({ tasks }) => ({
 
 const mapDispatchToProps = dispatch => ({
     removeTask: id => dispatch(removeTask(id)),
-    completeTask: id => dispatch(completeTask(id)),
-    removeCompletedTasks: () => dispatch(removeCompletedTasks()),
+    updateTask: (id, title, description, completed) => dispatch(updateTask(id, title, description, completed)),
     openTaskEditModal: (id, title, description, deadline) =>
         dispatch(openTaskEditModal(id, title, description, deadline)),
 });

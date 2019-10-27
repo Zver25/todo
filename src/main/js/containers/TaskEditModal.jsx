@@ -12,6 +12,7 @@ class TaskEditModal extends Component {
         form.validateFields((err, values) => {
             if (err) return;
             if (id) {
+                console.log(`updateTask id = ${id}, title = ${values.title}, description = ${values.description}`);
                 updateTask(id, values.title, values.description);
             }
             else {
@@ -78,7 +79,7 @@ const mapStateToProps = ({ taskEditModal }) => ({
 const mapDispatchToProps = dispatch => ({
     close: () => dispatch(closeTaskEditModal()),
     addTask: (title, description) => dispatch(addTask(title, description)),
-    updateTask: (id, title, description) => dispatch(updateTask(id, title, description)),
+    updateTask: (id, title, description) => dispatch(updateTask(id, title, description, false)),
     onChange: (field, value) => dispatch(changeFieldTaskEditModal(field, value))
 });
 
